@@ -4,13 +4,6 @@ frontend/node_modules/
 # Régénéré : npm run build
 frontend/dist/
 
-
-# Rapports d'entraînement régénérables
-REPORTS/
-
-# Racine Keepify-model (sources, pas le projet website)
-Keepify-model/
-
 # Caches Python
 __pycache__/
 *.py[cod]

@@ -18,10 +18,11 @@ Prédiction de churn client (ML) + interface React (Tailwind) + API FastAPI + Po
    cd frontend
    npm install
    ```
-4. **Modèle** (les `.joblib` ne sont pas dans git) :
+4. **Modèle** : les modèles entraînés sont **versionnés dans git** (`MODELS/*.joblib` + `REPORTS/`).
+   Pour réentraîner (optionnel) :
    ```powershell
    cd ..
-   python -m SRC.run   # génère MODELS/best_churn_model.joblib + REPORTS/
+   python -m SRC.run   # régénère MODELS/best_churn_model.joblib + REPORTS/
    ```
 5. **Lancer** :
    ```powershell
@@ -39,8 +40,9 @@ Prédiction de churn client (ML) + interface React (Tailwind) + API FastAPI + Po
 
 ## Fichiers ignorés par git (à régénérer)
 
-- `MODELS/*.joblib` — modèle entraîné (via `python -m SRC.run`)
-- `REPORTS/` — rapports/figures (via `python -m SRC.run`)
 - `frontend/node_modules/` — via `npm install`
 - `frontend/dist/` — via `npm run build`
 - `backend/.env` — secrets locaux (copier depuis `backend/.env.example`)
+- `DATA/` — copie locale (le jeu versionné est dans `dataset/`)
+
+> Les modèles `MODELS/*.joblib` et les rapports `REPORTS/` sont bien committés : le site fonctionne sans réentraînement.

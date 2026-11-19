@@ -9,54 +9,38 @@
   body {
     @apply bg-paper font-sans text-ink antialiased;
   }
-  h1, h2, .font-serif {
+  h1,
+  h2,
+  .font-serif {
     font-feature-settings: "ss01" on;
   }
-}
-
-@layer base {
-  :root {
-    --paper: #f8fafc;
-    --ink: #0f172a;
-    --teal: #0f766e;
-    --teal-dark: #115e59;
-    --clay: #a16207;
-    --line: #e2e8f0;
-    --paper-card: #ffffff;
-    --ink-muted: #64748b;
-    --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  }
-
-  .bg-paper { background-color: var(--paper); }
-  .text-ink { color: var(--ink); }
-  .bg-teal { background-color: var(--teal); }
-  .bg-teal-dark { background-color: var(--teal-dark); }
-  .bg-clay { background-color: var(--clay); }
-  .border-line { border-color: var(--line); }
-  .bg-paper-card { background-color: var(--paper-card); }
-  .text-ink-muted { color: var(--ink-muted); }
-  .shadow-card { box-shadow: var(--shadow-card); }
 }
 
 @layer components {
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-teal px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-dark disabled:cursor-not-allowed disabled:opacity-60;
   }
+
   .btn-secondary {
     @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-paper-card px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-paper;
   }
+
   .btn-danger {
     @apply inline-flex items-center justify-center gap-2 rounded-lg bg-clay px-4 py-2.5 text-sm font-semibold text-white transition hover:opacity-90;
   }
+
   .card {
     @apply rounded-xl border border-line bg-paper-card p-5 shadow-card;
   }
+
   .input-field {
     @apply w-full rounded-lg border border-line bg-paper px-3 py-2.5 text-sm text-ink outline-none transition placeholder:text-ink-muted focus:border-teal focus:bg-paper-card focus:ring-2 focus:ring-teal/20;
   }
+
   .label {
     @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-ink-muted;
   }
+
   .kpi-value {
     @apply font-serif text-3xl tracking-tight text-ink;
   }
