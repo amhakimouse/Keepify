@@ -1,0 +1,24 @@
+# Réinstallé sur une autre machine : npm install
+frontend/node_modules/
+
+# Régénéré : npm run build
+frontend/dist/
+
+# Caches Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Secrets locaux. Copier backend/.env.example vers backend/.env
+.env
+backend/.env
+
+# Copie locale du jeu déjà versionné dans dataset/
+DATA/
+
+# OS / éditeur
+.DS_Store
+Thumbs.db
+*.log
