@@ -29,7 +29,11 @@ def clean_features(X: pd.DataFrame) -> pd.DataFrame:
 
 class Contract_Tenure_Interaction(BaseEstimator, TransformerMixin):
     def fit(self, X, y=None):
+        self.is_fitted_ = True
         return self
+
+    def __sklearn_is_fitted__(self):
+        return getattr(self, "is_fitted_", False)
 
     def transform(self, X):
         contract_ord = X[:, [0]]
