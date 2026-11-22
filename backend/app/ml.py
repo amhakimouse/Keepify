@@ -213,6 +213,66 @@ FIELD_MAP = {
     "total_charges": "TotalCharges",
 }
 
+RAW_FEATURE_MAP = {
+    "gender": "Gender",
+    "Gender": "Gender",
+    "senior_citizen": "Senior Citizen",
+    "Senior Citizen": "Senior Citizen",
+    "SeniorCitizen": "Senior Citizen",
+    "partner": "Partner",
+    "Partner": "Partner",
+    "dependents": "Dependents",
+    "Dependents": "Dependents",
+    "tenure_months": "Tenure Months",
+    "tenure": "Tenure Months",
+    "Tenure Months": "Tenure Months",
+    "phone_service": "Phone Service",
+    "Phone Service": "Phone Service",
+    "PhoneService": "Phone Service",
+    "multiple_lines": "Multiple Lines",
+    "Multiple Lines": "Multiple Lines",
+    "MultipleLines": "Multiple Lines",
+    "internet_service": "Internet Service",
+    "Internet Service": "Internet Service",
+    "InternetService": "Internet Service",
+    "online_security": "Online Security",
+    "Online Security": "Online Security",
+    "OnlineSecurity": "Online Security",
+    "online_backup": "Online Backup",
+    "Online Backup": "Online Backup",
+    "OnlineBackup": "Online Backup",
+    "device_protection": "Device Protection",
+    "Device Protection": "Device Protection",
+    "DeviceProtection": "Device Protection",
+    "tech_support": "Tech Support",
+    "Tech Support": "Tech Support",
+    "TechSupport": "Tech Support",
+    "streaming_tv": "Streaming TV",
+    "Streaming TV": "Streaming TV",
+    "StreamingTV": "Streaming TV",
+    "streaming_movies": "Streaming Movies",
+    "Streaming Movies": "Streaming Movies",
+    "StreamingMovies": "Streaming Movies",
+    "contract": "Contract",
+    "Contract": "Contract",
+    "paperless_billing": "Paperless Billing",
+    "Paperless Billing": "Paperless Billing",
+    "PaperlessBilling": "Paperless Billing",
+    "payment_method": "Payment Method",
+    "Payment Method": "Payment Method",
+    "PaymentMethod": "Payment Method",
+    "monthly_charges": "Monthly Charges",
+    "Monthly Charges": "Monthly Charges",
+    "MonthlyCharges": "Monthly Charges",
+    "total_charges": "Total Charges",
+    "Total Charges": "Total Charges",
+    "TotalCharges": "Total Charges",
+    "latitude": "Latitude",
+    "Latitude": "Latitude",
+    "longitude": "Longitude",
+    "Longitude": "Longitude",
+}
+
 
 def map_customer_input(data: dict) -> dict:
     mapped = {}
@@ -230,17 +290,29 @@ def predict_churn(input_dict: dict):
         if not loaded:
             raise RuntimeError("Model not trained yet. Please train first.")
 
-    df = pd.DataFrame([input_dict])
-    features = make_features(df)
+    # Check if loaded model uses the raw column schema (e.g. from MODELS_to_use)
+    if "Tenure Months" in _feature_columns:
+        row = {}
+        for k, v in input_dict.items():
+            mapped_k = RAW_FEATURE_MAP.get(k, k)
+            row[mapped_k] = v
+        for col in _feature_columns:
+            if col not in row:
+                row[col] = None
+        df_row = pd.DataFrame([row])[list(_feature_columns)]
+        probabilities = _model.predict_proba(df_row)[:, 1]
+    else:
+        df = pd.DataFrame([input_dict])
+        features = make_features(df)
+        for col in _feature_columns:
+            if col not in features.columns:
+                features[col] = pd.NA
+        features = features.loc[:, list(_feature_columns)]
+        probabilities = _model.predict_proba(features)[:, 1]
 
-    for col in _feature_columns:
-        if col not in features.columns:
-            features[col] = pd.NA
-    features = features.loc[:, list(_feature_columns)]
-
-    probabilities = _model.predict_proba(features)[:, 1]
     prob = float(probabilities[0])
-    predicted = int(prob >= 0.5)
+    # Deployment optimal threshold T* = 0.29 (from experiments/results/05_threshold_roi_summary.csv)
+    predicted = int(prob >= 0.29)
 
     if prob < 0.30:
         risk = "Low"

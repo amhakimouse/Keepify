@@ -4,6 +4,7 @@ import {
   ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
 import { admin } from '../services/api'
+import ComparativeExperiments from '../components/ComparativeExperiments'
 
 const tooltipStyle = {
   background: '#fffcf8',
@@ -66,6 +67,9 @@ export default function AdminStats() {
           Modèle en production <span className="font-semibold text-teal">{stats.active_model}</span>
         </div>
       </div>
+
+      {/* Visualisations et Interprétations des Expérimentations au TOP du site */}
+      <ComparativeExperiments />
 
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {[

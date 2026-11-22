@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Activity, BarChart3, CreditCard } from 'lucide-react'
 import { predictions, subscriptions, model } from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
+import ComparativeExperiments from '../components/ComparativeExperiments'
 
 export default function ClientDashboard() {
   const { user } = useAuth()
@@ -26,6 +27,9 @@ export default function ClientDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Visualisations et Interprétations des Expérimentations au TOP du site */}
+      <ComparativeExperiments />
+
       <div>
         <p className="text-xs uppercase tracking-[0.16em] text-ink-muted">Espace client</p>
         <h2 className="mt-1 font-serif text-4xl">Bonjour {user?.username}</h2>

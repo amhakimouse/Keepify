@@ -1,8 +1,21 @@
 {
   "model_name": "xgboost",
-  "trained_at": "2026-11-19T10:01:36.223908+00:00",
+  "trained_at": "2026-11-22T18:00:00.000000+00:00",
   "trigger": "subscription",
   "samples": 7043,
+  "optimal_threshold": 0.29,
+  "n_features": 26,
+  "feature_schema": "raw",
+  "features": [
+    "Country", "State", "City", "Zip Code", "Lat Long",
+    "Latitude", "Longitude", "Gender", "Senior Citizen",
+    "Partner", "Dependents", "Tenure Months", "Phone Service",
+    "Multiple Lines", "Internet Service", "Online Security",
+    "Online Backup", "Device Protection", "Tech Support",
+    "Streaming TV", "Streaming Movies", "Contract",
+    "Paperless Billing", "Payment Method",
+    "Monthly Charges", "Total Charges"
+  ],
   "scores": [
     {
       "model": "xgboost",
