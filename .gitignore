@@ -7,8 +7,9 @@ __pycache__/
 .ipynb_checkpoints/
 *Training_Evaluation.ipynb
 
-# Cloned main workspace
+# Cloned workspaces
 Keepify_main/
+Keepify_website/
 
 # Virtual environments
 venv/
