@@ -16,7 +16,7 @@ env/
 backend/.env
 
 # Copie locale du jeu déjà versionné dans dataset/
-DATA/
+/DATA/
 
 # OS / éditeur
 .DS_Store
